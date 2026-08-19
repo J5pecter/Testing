@@ -1,0 +1,9 @@
+.git
+.env
+.venv
+__pycache__
+*.py[cod]
+data
+client_secret.json
+README.md
+ACCESS.md
