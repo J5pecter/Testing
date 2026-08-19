@@ -1,0 +1,15 @@
+name: Verify application
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build production image
+        run: docker build --tag instagram-youtube-transfer:${{ github.sha }} .
