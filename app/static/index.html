@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Instagram → YouTube Transfer</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header>
+        <p class="eyebrow">Personal content transfer</p>
+        <h1>Instagram <span>→</span> YouTube</h1>
+        <p class="lede">Transfer public videos you own: download, back up to Drive, publish to YouTube, then clean up Drive.</p>
+      </header>
+
+      <section class="notice">
+        <strong>Use only content you own or are licensed to republish.</strong>
+        This tool reads publicly available profile media without an Instagram login. Private profiles are not supported.
+      </section>
+
+      <section class="card connection-card">
+        <div>
+          <p class="eyebrow">Google connection</p>
+          <h2 id="google-heading">Checking access…</h2>
+          <p id="google-detail">Google authorization lets this app create/delete its Drive files and upload to your YouTube channel.</p>
+        </div>
+        <a class="button secondary" id="google-connect" href="/api/auth/google/start">Connect Google</a>
+      </section>
+
+      <section class="card">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">New transfer</p>
+            <h2>Start a profile job</h2>
+          </div>
+          <p class="muted">The default privacy is private—review uploads before publishing.</p>
+        </div>
+        <form id="job-form">
+          <label>
+            Public Instagram profile URL
+            <input id="profile-url" name="profile_url" type="url" placeholder="https://www.instagram.com/your_username/" required />
+          </label>
+          <div class="form-row">
+            <label>
+              YouTube visibility
+              <select id="privacy" name="privacy">
+                <option value="private" selected>Private (recommended)</option>
+                <option value="unlisted">Unlisted</option>
+                <option value="public">Public</option>
+              </select>
+            </label>
+            <label>
+              Video limit
+              <input id="max-videos" name="max_videos" type="number" min="0" max="5000" value="0" />
+              <span class="help">0 means every public video.</span>
+            </label>
+          </div>
+          <label class="checkbox">
+            <input id="rights-confirmed" type="checkbox" required />
+            <span>I own these videos or have explicit permission to upload them to YouTube.</span>
+          </label>
+          <div class="form-actions">
+            <button class="button" type="submit">Start transfer</button>
+            <p id="form-message" role="status"></p>
+          </div>
+        </form>
+      </section>
+
+      <section class="jobs-section">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">Activity</p>
+            <h2>Transfer jobs</h2>
+          </div>
+          <button class="text-button" id="refresh" type="button">Refresh</button>
+        </div>
+        <div id="jobs" class="jobs"><p class="muted">No jobs yet.</p></div>
+      </section>
+    </main>
+    <template id="job-template">
+      <article class="job card">
+        <div class="job-heading">
+          <div>
+            <h3 class="job-user"></h3>
+            <p class="job-date muted"></p>
+          </div>
+          <span class="badge job-status"></span>
+        </div>
+        <p class="job-message"></p>
+        <p class="job-error error"></p>
+        <div class="job-actions">
+          <button class="text-button details" type="button">View videos</button>
+          <button class="text-button cancel" type="button">Cancel</button>
+        </div>
+        <div class="video-list hidden"></div>
+      </article>
+    </template>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
