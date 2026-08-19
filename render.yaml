@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: instagram-youtube-transfer
+    runtime: docker
+    plan: starter
+    healthCheckPath: /health
+    autoDeploy: true
+    disk:
+      name: transfer-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: APP_DATA_DIR
+        value: /var/data
+      - key: APP_BASE_URL
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: APP_PASSWORD
+        sync: false
+      - key: GOOGLE_CLIENT_SECRETS_B64
+        sync: false
+      - key: GOOGLE_TOKEN_FILE
+        value: /var/data/google_token.json
+      - key: MAX_CONCURRENT_JOBS
+        value: "1"
+      - key: DELETE_LOCAL_AFTER_SUCCESS
+        value: "true"
